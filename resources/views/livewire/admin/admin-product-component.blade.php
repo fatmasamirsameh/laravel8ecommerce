@@ -12,9 +12,20 @@
      <div class="col-md-12">
          <div class="panel panel-default">
              <div class="panel-heading">
-                 All Products
+                <div class="col-md-6">
+                   All Products
+                 </div>
+                 <div class="col-md-6">
+                             <a href="{{route('admin.addproduct')}}" class="btn btn-success pull-right">
+                               add New
+                             </a>
+                     </div>
              </div>
+         </div>
              <div class="panel-body">
+                 @if(Session::has('message'))
+                 <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
+                    @endif
                  <table class="table table-striped">
                      <thead>
                          <tr>
@@ -22,7 +33,8 @@
                              <th>Image</th>
                              <th>Name</th>
                              <th>Stock</th>
-                             <th>Price</th>
+                             <th>Regular_price</th>
+                             <th>Sale_Price</th>
                              <th>Category</th>
                              <th>Date</th>
                              <th>Action</th>
@@ -38,8 +50,17 @@
                              <td>{{$product->name}}</td>
                              <td>{{$product->stock_status}}</td>
                              <td>{{$product->regular_price}}</td>
+                             <td>{{$product->sale_price}}</td>
                              <td>{{$product->category->name}}</td>
                              <td>{{$product->created_at}}</td>
+                             <td>
+                                 <a href="{{route('admin.editproduct',['product_slug'=>$product->slug])}}">
+                                     <i class="fa fa-edit fa2x text-info"></i>
+                                 </a>
+                                 <a href="#"  onclick="confirm('Are you sure, You want to delete this product?') || event.stopImmediatePropagation()" style="margin-left:10px;" wire:click.prevent="deleteProduct({{$product->id}})">
+                                     <i class="fa fa-times fa2x text-danger"></i>
+                                 </a>
+                             </td>
                          </tr>
                          @endforeach
                      </tbody>
@@ -51,4 +72,4 @@
  </div>
 
  </div>
-</div>
+

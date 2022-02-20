@@ -7,7 +7,7 @@
                      <div class="row">
                         
                          <div class="col-md-6">
-                           Add New Products
+                           Edit Product
                          </div>
                          <div class="col-md-6">
                              <a href="{{route('admin.products')}}" class="btn btn-success pull-right">
@@ -20,7 +20,7 @@
                      @if(Session::has('message'))
                      <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
                      @endif
-                     <form class="form-horizontal" enctype="multipart/form-data" wire:submit.prevent="addProduct">
+                     <form class="form-horizontal" enctype="multipart/form-data" wire:submit.prevent="updateProduct">
                          <div class="form-group">
                              <label class="col-md-4 control-label">
                                  Product Name
@@ -43,8 +43,8 @@
                              <label class="col-md-4 control-label">
                                  Short Description
                              </label>
-                             <div class="col-md-4" wire:ignore>
-                                <textarea class="form-control" id ="short_description"  placeholder="Short Description" wire:model="short_description"></textarea>
+                             <div class="col-md-4">
+                                <textarea class="form-control" placeholder="Short Description" wire:model="short_description"></textarea>
                                 @error('short_description') <p class="text-danger">{{$message}}</p> @enderror
                              </div>
                              </div>
@@ -52,8 +52,8 @@
                              <label class="col-md-4 control-label">
                                  Description
                              </label>
-                             <div class="col-md-4" wire:ignore>
-                                 <input type="text" id="description" placeholder="Description" class="form-control input-md" wire:model="description"/>
+                             <div class="col-md-4">
+                                 <input type="text" placeholder="Description" class="form-control input-md" wire:model="description"/>
                                  @error('description') <p class="text-danger">{{$message}}</p> @enderror
                              </div>
                              </div>
@@ -125,10 +125,12 @@
                                  Product Image
                              </label>
                              <div class="col-md-4">
-                                 <input type="file" placeholder="Product Image" class="input-file" wire:model="image"/>
-                                 @error('image') <p class="text-danger">{{$message}}</p> @enderror
-                                 @if($image)
-                                 <img src="{{$image->temporaryUrl()}}" width="120"/>
+                                 <input type="file" placeholder="Product Image" class="input-file" wire:model="newimage"/>
+                                 @error('newimage') <p class="text-danger">{{$message}}</p> @enderror
+                                 @if($newimage)
+                                 <img src="{{$newimage->temporaryUrl()}}" width="120"/>
+                                 @else
+                                 <img src="{{asset('assets/images/products')}}/{{$image}}" width="120"/>
                                  @endif
                              </div>
                              </div>
@@ -152,7 +154,7 @@
                                 Quantity
                              </label>
                              <div class="col-md-4">
-                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                 <button type="submit" class="btn btn-primary">Update</button>
                              </div>
                              </div>
                              
@@ -167,31 +169,3 @@
      </div>
 </div>
 </div>
-@push('scripts')
-<script>
-    $(function(){
-        tinymce.init({
-        selector:'#short_description',
-        setup:function(editor){
-            editor.on('Change',function(e){
-                tinyMCE.triggerSave();
-                var sd_data = $('#short_description').val();
-                @this.set('short_description',sd_data);
-            });
-        }
-        });
-
-      
-        tinymce.init({
-        selector:'#description',
-        setup:function(editor){
-            editor.on('Change',function(e){
-                tinyMCE.triggerSave();
-                var d_data = $('#description').val();
-                @this.set('description',d_data);
-            });
-        }
-        });
-    });
-</script>
-@endpush

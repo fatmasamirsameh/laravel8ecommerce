@@ -16,6 +16,10 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/flexslider.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/color-01.css')}}">
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.0.0-beta2/css/tempus-dominus.css" integrity="sha512-nYyjqNXfY5IWOHku56FIiRntoIbMTDH//ZKcmW6KE4uTPvnLtKdz/UcwfluGSaDc0ALkuQbNUYngjDtQKMsN7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" integrity="sha512-KRrxEp/6rgIme11XXeYvYRYY/x6XPGwk0RsIC6PyMRc072vj2tcjBzFmn939xzjeDhj0aDO7TDMd7Rbz3OEuBQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     @livewireStyles
 </head>
 <body class="home-page home-01 ">
@@ -70,6 +74,15 @@
 											<a title="Products" href="{{route('admin.products')}}">All Products</a>
 										</li>
 										<li class="menu-item" >
+											<a title="Manage Home Slider" href="{{route('admin.homeslider')}}">Manage Home Slider</a>
+										</li>
+										<li class="menu-item" >
+											<a title="Manage Home Categories" href="{{route('admin.homecategories')}}">Manage Home Categories</a>
+										</li>
+										<li class="menu-item" >
+											<a title="Sale Setting" href="{{route('admin.sale')}}">Sale Setting</a>
+										</li>
+										<li class="menu-item" >
 											<a title="Dashboard" href="{{route('logout')}}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
 										</li>
 										<form id = "logout-form" method ="POST" action="{{route('logout')}}">
@@ -114,26 +127,9 @@
 
 						@livewire('header-search-component');
 						<div class="wrap-icon right-section">
-							<div class="wrap-icon-section wishlist">
-								<a href="#" class="link-direction">
-									<i class="fa fa-heart" aria-hidden="true"></i>
-									<div class="left-info">
-										<span class="index">0 item</span>
-										<span class="title">Wishlist</span>
-									</div>
-								</a>
-							</div>
-							<div class="wrap-icon-section minicart">
-								<a href="#" class="link-direction">
-									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
-									<div class="left-info">
-										@if(Cart::count() > 0)
-										<span class="index">{{Cart::count()}} items</span>
-										@endif
-										<span class="title">CART</span>
-									</div>
-								</a>
-							</div>
+						@livewire('wishlist-count-component')
+						@livewire('cart-count-component')
+						
 							<div class="wrap-icon-section show-up-after-1024">
 								<a href="#" class="mobile-navigation">
 									<span></span>
@@ -453,6 +449,12 @@
 	<script src="assets/js/jquery.countdown.min.js"></script>
 	<script src="assets/js/jquery.sticky.js"></script>
 	<script src="assets/js/functions.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.0.0-beta2/js/tempus-dominus.min.js" integrity="sha512-Ij5chpS6/QXqecAuueuhH7afEMmbe0Fmu9zWl/y//kn6iISdVvQ63Ra7PCp3avCU+/+4OBWapk+VJsldye25rg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js" integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.tiny.cloud/1/n7tkfui6dpabkv2sa6zcbb4aavfjjp4hbazy7owac7mxqwjw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     @livewireScripts
+	@stack('scripts')
 </body>
 </html>
